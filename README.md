@@ -4,8 +4,8 @@
 
 It exposes:
 
-- `get_response(prompt, model)`: send one prompt and return the model response.
-- `ask_llm(prompt, model, check_fn=None, n_tries=5)`: retry until a validation function accepts the response.
+- `get_response(prompt, model, timeout=30)`: send one prompt and return the model response.
+- `ask_llm(prompt, model, check_fn=None, n_tries=5, timeout=30)`: retry until a validation function accepts the response.
 
 ## Requirements
 
@@ -14,7 +14,13 @@ It exposes:
 
 ## Installation
 
-Install from this project directory:
+Install in your active interpreter (outside `venv` if you are not inside one):
+
+```bash
+python -m pip install .
+```
+
+Install in editable mode for development:
 
 ```bash
 python -m pip install -e .

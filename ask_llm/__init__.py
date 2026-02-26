@@ -1,35 +1,22 @@
 import requests
-import json
 
 
-# %% llm functions
-# function to ask question
-def get_response(prmpt, model):
+def get_response(prmpt, model, timeout=30):
     url = "http://localhost:11434/api/generate"
-    headers = {"Content-type": "application/json"}
-    data = {"model": model, "prompt": prmpt, "stream": False}
-    response = requests.post(url, headers=headers, data=json.dumps(data))
-
-    while response.status_code != 200:
-        response = requests.post(url, headers=headers, data=json.dumps(data))
-
-    response_text = response.text
-    data = json.loads(response_text)
-    actual_response = data["response"]
-    return actual_response
+    payload = {"model": model, "prompt": prmpt, "stream": False}
+    response = requests.post(url, json=payload, timeout=timeout)
+    response.raise_for_status()
+    return response.json()["response"]
 
 
-# function with safeguard
-# check fn should return Boolean T or F
-def ask_llm(prompt, model, check_fn=None, n_tries=5):
-    resp = None
-
-    if check_fn is None:
-        return get_response(prmpt=prompt, model=model)
-
+def ask_llm(prompt, model, check_fn=None, n_tries=5, timeout=30):
     for _ in range(n_tries):
-        resp = get_response(prmpt=prompt, model=model)
-        if check_fn(resp):
+        try:
+            resp = get_response(prmpt=prompt, model=model, timeout=timeout)
+        except requests.RequestException:
+            continue
+
+        if check_fn is None or check_fn(resp):
             return resp
 
     print("Max tries reached — returning None")
