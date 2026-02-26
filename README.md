@@ -46,7 +46,7 @@ from ask_llm import ask_llm
 def has_period(text: str) -> bool:
     return "." in text
 
-response = ask_llm(
+response = ask_model(
     prompt="Answer with one sentence.",
     model="llama3.1",
     check_fn=has_period,
