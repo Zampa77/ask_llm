@@ -1,0 +1,16 @@
+[project]
+name = "ask_llm"
+version = "0.1.0"
+description = "Easily prompt Ollama from Python"
+authors = [{ name = "Michele Zampa" }]
+readme = "README.md"
+requires-python = ">=3.9"
+
+dependencies = [
+    "requests",
+    "json"
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"

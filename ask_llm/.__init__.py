@@ -1,4 +1,5 @@
 import requests
+import json
 
 
 # %% llm functions
@@ -6,7 +7,7 @@ import requests
 def get_response(prmpt, model):
     url = "http://localhost:11434/api/generate"
     headers = {"Content-type": "application/json"}
-    data = {"model": model, "prompt": prmpt, "Stream": False}
+    data = {"model": model, "prompt": prmpt, "stream": False}
     response = requests.post(url, headers=headers, data=json.dumps(data))
 
     while response.status_code != 200:
