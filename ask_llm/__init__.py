@@ -1,7 +1,11 @@
+# %%
 import requests
 
 
-def get_response(prmpt, model, timeout=30):
+# %%
+def get_response(prmpt, model, timeout=100):
+    prmpt = "hi"
+    model = "gemma3:12b"
     url = "http://localhost:11434/api/generate"
     payload = {"model": model, "prompt": prmpt, "stream": False}
     response = requests.post(url, json=payload, timeout=timeout)
