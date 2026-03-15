@@ -31,7 +31,7 @@ python -m pip install -e .
 ```python
 from ask_llm import ask_llm
 
-response = ask_llm(
+response = ask_model(
     prompt="Explain recursion in one sentence.",
     model="llama3.1"
 )
