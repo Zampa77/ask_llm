@@ -6,6 +6,7 @@ It exposes:
 
 - `get_response(prompt, model, timeout=30)`: send one prompt and return the model response.
 - `ask_llm(prompt, model, check_fn=None, n_tries=5, timeout=30)`: retry until a validation function accepts the response.
+- `ask_model(...)`: backward-compatible alias for `ask_llm(...)`.
 
 ## Requirements
 
@@ -31,7 +32,7 @@ python -m pip install -e .
 ```python
 from ask_llm import ask_llm
 
-response = ask_model(
+response = ask_llm(
     prompt="Explain recursion in one sentence.",
     model="llama3.1"
 )
@@ -46,7 +47,7 @@ from ask_llm import ask_llm
 def has_period(text: str) -> bool:
     return "." in text
 
-response = ask_model(
+response = ask_llm(
     prompt="Answer with one sentence.",
     model="llama3.1",
     check_fn=has_period,
